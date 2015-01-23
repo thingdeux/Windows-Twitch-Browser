@@ -10,7 +10,7 @@ using Base_API.API;
 using Twitch_API.Twitch;
 
 
-namespace WindowsFormsApplication1
+namespace Stream_Browser
 {
     public partial class TwitchBrowse : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace Stream_Browser
 {
     partial class TwitchBrowse
     {
