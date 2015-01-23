@@ -20,7 +20,7 @@ namespace Twitch_API.Twitch
         // Twitch API Constructor
         public TwitchAPI() : base()
         {            
-            this.SetURI = string.Format("https://api.twitch.tv/kraken/streams?limit={0}&embeddable=true", channel_limit);
+            this.SetURI = string.Format("https://api.twitch.tv/kraken/streams?limit={0}&embeddable=true&game=Ultra Street Fighter IV", channel_limit);
             this.addHeader("Accept", string.Format("application/vnd.twitchtv.v{0}+json", twitch_api_version));
         }
 
