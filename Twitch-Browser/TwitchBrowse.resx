@@ -124,7 +124,7 @@
   <data name="TwitchLogo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAMYAAABSCAYAAAAPbKsIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
         AAANj0lEQVR4Xu2deagVVRzHyy0tc7dySzMw3DK1TLE0c0nzD0PNNrUUQzEjCgzTQq0kszAXRMUlNCw1
         iBYRSotWNTML2gtRLIqyPSkNabrf836/55kzv3vfmbnnzl3e+cD33bP+zpm5831z595Zzrj44osDl+rU
         qVPQu3fvoNJp06ZN0LlzZ3EdFEuY0z333EMzLB3WrFkTnHfeeeKck6pVq1bB5s2baQT3nJEBf5zr7LPP
@@ -189,7 +189,7 @@
   <data name="TwitchLogo.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAMYAAABSCAYAAAAPbKsIAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
         AAANj0lEQVR4Xu2deagVVRzHyy0tc7dySzMw3DK1TLE0c0nzD0PNNrUUQzEjCgzTQq0kszAXRMUlNCw1
         iBYRSotWNTML2gtRLIqyPSkNabrf836/55kzv3vfmbnnzl3e+cD33bP+zpm5831z595Zzrj44osDl+rU
         qVPQu3fvoNJp06ZN0LlzZ3EdFEuY0z333EMzLB3WrFkTnHfeeeKck6pVq1bB5s2baQT3nJEBf5zr7LPP

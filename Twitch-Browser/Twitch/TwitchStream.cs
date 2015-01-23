@@ -95,6 +95,14 @@ namespace Twitch_API.Twitch
                 return preview_image;
             }
         }
+
+        public string StreamUrl
+        {
+            get
+            {
+                return url;
+            }
+        }
     }
 
 }

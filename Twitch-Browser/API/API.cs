@@ -65,7 +65,7 @@ namespace Base_API.API
                 {
                     Debug.WriteLine(String.Format("{0}: {1}, ", this.client.ResponseHeaders.GetKey(i), this.client.ResponseHeaders[i]));
                 } */
-                #endregion
+                #endregion                
                 Stream Data = this.client.OpenRead(this.requestURI);                
                 // Set Status on Stream Read
                 StreamReader reader = new StreamReader(Data);

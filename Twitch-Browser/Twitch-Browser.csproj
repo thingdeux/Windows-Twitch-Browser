@@ -58,6 +58,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Twitch\TwitchGame.cs" />
+    <Compile Include="Twitch\TwitchGames.cs" />
     <Compile Include="Twitch\TwitchStream.cs" />
     <Compile Include="Twitch\TwitchStreams.cs" />
     <EmbeddedResource Include="TwitchBrowse.resx">

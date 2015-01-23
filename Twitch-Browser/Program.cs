@@ -15,7 +15,7 @@ namespace Stream_Browser
         {            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TwitchBrowse());                        
+            Application.Run(new TwitchBrowse());
         }
     }
 }
