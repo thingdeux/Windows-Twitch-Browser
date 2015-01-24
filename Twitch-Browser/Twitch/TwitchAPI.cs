@@ -108,7 +108,7 @@ namespace Twitch_API.Twitch
         }
 
         public TwitchStream get_stream(int index) {            
-            return found_streams[index];            
+            return found_streams[index];
         }
 
         public string Game

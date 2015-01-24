@@ -54,9 +54,10 @@ namespace Stream_Browser
                 this.Preview4Text.Text = twitch.get_stream(4).get_title;
                 this.PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;
             }
-            catch
+            catch (ArgumentOutOfRangeException)
             {
-                // TODO: Error Catch streams being out of index
+                // TODO: Error Catch streams being out of index - This would happen if less
+                /// than X predefined preview boxes are returned for a game.  (ie: 4 Preview boxes, 2 streams returned.
             }
             
         }        
