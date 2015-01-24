@@ -23,7 +23,15 @@ namespace Stream_Browser
         {
             InitializeComponent();
             // Call Twitch and get a list of popular games, feed them to the game selector
-            this.gameSelector_list_load();
+            try
+            {
+                this.gameSelector_list_load();
+            }
+            catch (ArgumentNullException) {
+                // TODO: Create No internet connection error and handler
+            }
+
+            
         }
 
         public void clearPreviews()
@@ -48,14 +56,9 @@ namespace Stream_Browser
             }
             catch
             {
-                // TODO: Error Catch
+                // TODO: Error Catch streams being out of index
             }
             
-        }
-
-        private void callAPI_Click(object sender, EventArgs e)
-        {            
-            drawPreviews();
         }        
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)

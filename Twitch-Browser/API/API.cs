@@ -56,7 +56,7 @@ namespace Base_API.API
                 foreach (string key in headers.Keys)
                 {
                     this.client.Headers.Add(key, headers[key]);                    
-                }                
+                }
                 #region Debug Request/Response Header info
                 /*
                 Debug.WriteLine(String.Format("Calling: {0}", requestURI));                
@@ -66,13 +66,25 @@ namespace Base_API.API
                     Debug.WriteLine(String.Format("{0}: {1}, ", this.client.ResponseHeaders.GetKey(i), this.client.ResponseHeaders[i]));
                 } */
                 #endregion                
-                Stream Data = this.client.OpenRead(this.requestURI);                
-                // Set Status on Stream Read
-                StreamReader reader = new StreamReader(Data);
-                string http_data = reader.ReadToEnd();
-                Data.Close();
-                reader.Close();
-                return (http_data);             
+                try {
+                    Stream Data = this.client.OpenRead(this.requestURI);
+                    // TODO:  Set Status on Stream Read
+                    StreamReader reader = new StreamReader(Data);
+                    string http_data = reader.ReadToEnd();
+                    Data.Close();
+                    reader.Close();
+                    return (http_data);             
+                }
+                catch (WebException e)
+                {
+                    Debug.WriteLine(
+                        string.Format("WebException: {0}", e.Message)
+                        );
+                    throw new ArgumentNullException();
+                }
+                
+                
+                
             }
             else
             {
