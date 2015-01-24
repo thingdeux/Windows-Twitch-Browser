@@ -11,7 +11,7 @@ namespace Base_API.API
 
     public abstract class API
     {
-        private DateTime lastCall = new DateTime();
+        //private DateTime lastCall = new DateTime();
         private int statusCode = 0;
         private string returnType;
         private string requestURI = "";

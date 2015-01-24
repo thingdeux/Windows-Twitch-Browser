@@ -34,10 +34,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.destinyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ultraStreetFighterIVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.minecraftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PreviewImage2 = new System.Windows.Forms.PictureBox();
             this.PreviewImage3 = new System.Windows.Forms.PictureBox();
             this.PreviewImage4 = new System.Windows.Forms.PictureBox();
@@ -48,6 +44,7 @@
             this.TwitchLogo = new System.Windows.Forms.PictureBox();
             this.gameSelector = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewImage1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewImage2)).BeginInit();
@@ -91,49 +88,17 @@
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeGameToolStripMenuItem});
+            this.preferencesToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Visible = false;
-            // 
-            // changeGameToolStripMenuItem
-            // 
-            this.changeGameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.destinyToolStripMenuItem,
-            this.ultraStreetFighterIVToolStripMenuItem,
-            this.minecraftToolStripMenuItem});
-            this.changeGameToolStripMenuItem.Name = "changeGameToolStripMenuItem";
-            this.changeGameToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.changeGameToolStripMenuItem.Text = "Change Game";
-            // 
-            // destinyToolStripMenuItem
-            // 
-            this.destinyToolStripMenuItem.Name = "destinyToolStripMenuItem";
-            this.destinyToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.destinyToolStripMenuItem.Text = "Destiny";
-            this.destinyToolStripMenuItem.Click += new System.EventHandler(this.destinyToolStripMenuItem_Click);
-            // 
-            // ultraStreetFighterIVToolStripMenuItem
-            // 
-            this.ultraStreetFighterIVToolStripMenuItem.Name = "ultraStreetFighterIVToolStripMenuItem";
-            this.ultraStreetFighterIVToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.ultraStreetFighterIVToolStripMenuItem.Text = "Ultra Street Fighter IV";
-            this.ultraStreetFighterIVToolStripMenuItem.Click += new System.EventHandler(this.ultraStreetFighterIVToolStripMenuItem_Click);
-            // 
-            // minecraftToolStripMenuItem
-            // 
-            this.minecraftToolStripMenuItem.Name = "minecraftToolStripMenuItem";
-            this.minecraftToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.minecraftToolStripMenuItem.Text = "Minecraft";
-            this.minecraftToolStripMenuItem.Click += new System.EventHandler(this.minecraftToolStripMenuItem_Click);
             // 
             // PreviewImage2
             // 
@@ -253,6 +218,13 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Select a Game ---->";
             // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.preferencesToolStripMenuItem.Text = "Preferences";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
             // TwitchBrowse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,7 +243,6 @@
             this.Controls.Add(this.PreviewImage2);
             this.Controls.Add(this.PreviewImage1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "TwitchBrowse";
             this.Text = "TwitchBrowse";
@@ -302,12 +273,9 @@
         private System.Windows.Forms.RichTextBox Preview1Text;
         private System.Windows.Forms.RichTextBox Preview2Text;
         private System.Windows.Forms.PictureBox TwitchLogo;
-        private System.Windows.Forms.ToolStripMenuItem changeGameToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem destinyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ultraStreetFighterIVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem minecraftToolStripMenuItem;
         private System.Windows.Forms.ComboBox gameSelector;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
 
 
     }

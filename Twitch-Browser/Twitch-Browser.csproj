@@ -49,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\API.cs" />
+    <Compile Include="Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Twitch\TwitchAPI.cs" />
     <Compile Include="TwitchBrowse.cs">
       <SubType>Form</SubType>
@@ -62,6 +68,9 @@
     <Compile Include="Twitch\TwitchGames.cs" />
     <Compile Include="Twitch\TwitchStream.cs" />
     <Compile Include="Twitch\TwitchStreams.cs" />
+    <EmbeddedResource Include="Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TwitchBrowse.resx">
       <DependentUpon>TwitchBrowse.cs</DependentUpon>
     </EmbeddedResource>

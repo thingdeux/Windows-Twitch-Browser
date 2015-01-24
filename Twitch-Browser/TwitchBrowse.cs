@@ -15,27 +15,36 @@ namespace Stream_Browser
 {
     public partial class TwitchBrowse : Form
     {
-        private TwitchAPI twitch = new TwitchAPI();
+        private static bool isDebug = true;
+        private TwitchAPI twitch = new TwitchAPI();        
+        private Configuration config_window;
 
         public TwitchBrowse()
         {
             InitializeComponent();
+            // Call Twitch and get a list of popular games, feed them to the game selector
             this.gameSelector_list_load();
+        }
+
+        public void clearPreviews()
+        {
+            throw new NotImplementedException();
         }
 
         public void drawPreviews()
         {
             string resp = twitch.get_top_streams();
+
             try
             {
-                Preview1Text.Text = twitch.get_stream(1).get_title;
-                PreviewImage1.ImageLocation = twitch.get_stream(1).image_url;
-                Preview2Text.Text = twitch.get_stream(2).get_title;
-                PreviewImage2.ImageLocation = twitch.get_stream(2).image_url;
-                Preview3Text.Text = twitch.get_stream(3).get_title;
-                PreviewImage3.ImageLocation = twitch.get_stream(3).image_url;
-                Preview4Text.Text = twitch.get_stream(4).get_title;
-                PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;
+                this.Preview1Text.Text = twitch.get_stream(1).get_title;
+                this.PreviewImage1.ImageLocation = twitch.get_stream(1).image_url;
+                this.Preview2Text.Text = twitch.get_stream(2).get_title;
+                this.PreviewImage2.ImageLocation = twitch.get_stream(2).image_url;
+                this.Preview3Text.Text = twitch.get_stream(3).get_title;
+                this.PreviewImage3.ImageLocation = twitch.get_stream(3).image_url;
+                this.Preview4Text.Text = twitch.get_stream(4).get_title;
+                this.PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;
             }
             catch
             {
@@ -47,27 +56,7 @@ namespace Stream_Browser
         private void callAPI_Click(object sender, EventArgs e)
         {            
             drawPreviews();
-        }
-
-        #region Game settings click listeners
-        private void destinyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            twitch.Game = sender.ToString(); // Update game
-            drawPreviews();
-        }
-
-        private void ultraStreetFighterIVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            twitch.Game = sender.ToString(); // Update game
-            drawPreviews();
-        }
-
-        private void minecraftToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            twitch.Game = sender.ToString(); // Update game
-            drawPreviews();
-        }
-        #endregion
+        }        
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -109,6 +98,24 @@ namespace Stream_Browser
             ComboBox selection_box = (ComboBox)sender;            
             twitch.Game = selection_box.SelectedItem.ToString();
             drawPreviews();
+        }
+
+        private void setFavoritesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Debug.WriteLine(config_window.ToString());
+            if (config_window == null)
+            {
+                if (this.config_window == null)
+                {
+                    this.config_window = new Configuration();
+                    config_window.Show();
+                }                                
+            }            
         }
     }
        
