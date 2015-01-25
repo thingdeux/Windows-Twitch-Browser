@@ -16,8 +16,10 @@ namespace Stream_Browser
     public partial class TwitchBrowse : Form
     {
         private static bool isDebug = true;
-        private TwitchAPI twitch = new TwitchAPI();        
+        private TwitchAPI twitch = new TwitchAPI();
         private Configuration config_window;
+        private const string BESTGAMEEVER = "Ultra Street Fighter IV";
+        private List<PictureBox> preview_boxes = new List<PictureBox>();
 
         public TwitchBrowse()
         {
@@ -26,12 +28,11 @@ namespace Stream_Browser
             try
             {
                 this.gameSelector_list_load();
+                this.create_preview_boxes();
             }
             catch (ArgumentNullException) {
                 // TODO: Create No internet connection error and handler
             }
-
-            
         }
 
         public void clearPreviews()
@@ -41,25 +42,47 @@ namespace Stream_Browser
 
         public void drawPreviews()
         {
+            // TODO : Remove call to twitch on drawPreviews
             string resp = twitch.get_top_streams();
-
-            try
-            {
-                this.Preview1Text.Text = twitch.get_stream(1).get_title;
-                this.PreviewImage1.ImageLocation = twitch.get_stream(1).image_url;
-                this.Preview2Text.Text = twitch.get_stream(2).get_title;
-                this.PreviewImage2.ImageLocation = twitch.get_stream(2).image_url;
-                this.Preview3Text.Text = twitch.get_stream(3).get_title;
-                this.PreviewImage3.ImageLocation = twitch.get_stream(3).image_url;
-                this.Preview4Text.Text = twitch.get_stream(4).get_title;
-                this.PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                // TODO: Error Catch streams being out of index - This would happen if less
-                /// than X predefined preview boxes are returned for a game.  (ie: 4 Preview boxes, 2 streams returned.
-            }
+            int preview_location = 0;
             
+            if (IntroTextBox.IsDisposed == false) 
+            {
+                IntroTextBox.Hide();
+                IntroTextBox.Enabled = false;
+                IntroTextBox.Dispose();  
+            }
+
+            
+            foreach (PictureBox box in preview_boxes)
+            {
+                try
+                {
+                    preview_boxes[preview_location].ImageLocation = twitch.get_stream(preview_location).image_url;
+                    if (!box.Enabled)
+                    {
+                        // TODO : Fix out of order indexing problem ('doh)
+                        box.Enabled = true;
+                    }
+                    preview_location += 1;
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    // TODO: Error Catch streams being out of index - This would happen if less
+                    /// than X predefined preview boxes are returned for a game.  (ie: 4 Preview boxes, 2 streams returned.
+                    Debug.WriteLine(string.Format("Found Missing Stream {0}", preview_location));
+                    box.Enabled = false;
+                }
+            }
+            /*
+            this.Preview1Text.Text = twitch.get_stream(1).get_title;
+            // this.PreviewImage1.ImageLocation = twitch.get_stream(1).image_url;
+            this.Preview2Text.Text = twitch.get_stream(2).get_title;
+            // this.PreviewImage2.ImageLocation = twitch.get_stream(2).image_url;
+            this.Preview3Text.Text = twitch.get_stream(3).get_title;
+            // this.PreviewImage3.ImageLocation = twitch.get_stream(3).image_url;
+            this.Preview4Text.Text = twitch.get_stream(4).get_title;
+            // this.PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;            */
         }        
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,7 +109,10 @@ namespace Stream_Browser
             ComboBox selection_box = this.gameSelector;
             selection_box.Items.Clear();       
             List<string> popular_games = twitch.get_popular_games();
-            selection_box.Items.Add("Ultra Street Fighter IV");
+            // Street Fighter will now and FOREVER remain at the top of the popular games list,
+            // Deal with it.
+            selection_box.Items.Add(BESTGAMEEVER);
+            selection_box.Items.Add("Spyro the Dragon");
 
             foreach (string game in popular_games)
             {                
@@ -102,24 +128,31 @@ namespace Stream_Browser
             ComboBox selection_box = (ComboBox)sender;            
             twitch.Game = selection_box.SelectedItem.ToString();
             drawPreviews();
-        }
-
-        private void setFavoritesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+        }       
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Debug.WriteLine(config_window.ToString());
-            if (config_window == null)
+            if (config_window == null || this.config_window.IsDisposed)
             {
-                if (this.config_window == null)
-                {
-                    this.config_window = new Configuration();
-                    config_window.Show();
-                }                                
+                this.config_window = new Configuration();
+                config_window.Show();
             }            
+        }
+
+        private void create_preview_boxes()
+        {
+            var query = from object preview in this.Controls
+                        where preview is PictureBox
+                        select preview;
+            
+            foreach (PictureBox f in query) 
+            {
+                if (f.Tag != null && (string)f.Tag == "game".ToLower())
+                {
+                    this.preview_boxes.Add(f);
+                }                                
+            }
+
         }
     }
        

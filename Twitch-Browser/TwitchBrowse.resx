@@ -251,4 +251,17 @@
         FHYrAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="IntroTextBox.Text" xml:space="preserve">
+    <value>Welcome to the Stream Browser.
+
+Please select your desired game from the list of popular games below!
+Should you wish to add your own, custom games click settings now.
+(Oh and .... I'm sure I'll make that easier in the future ... give me time....jeez)
+
+
+
+
+
+---JJ</value>
+  </data>
 </root>
