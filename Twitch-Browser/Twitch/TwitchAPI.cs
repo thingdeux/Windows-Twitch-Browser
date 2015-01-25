@@ -68,37 +68,38 @@ namespace Twitch_API.Twitch
             popular_games.Clear();
             // Deserialize the response into a generic dictionary
             Dictionary<string, object> Json_Response = (Dictionary<string, object>)jsonSerializer.DeserializeObject(response_string);
+            
+            #region Deserialize stream objects to twitchStreams
+            var query = from s in Json_Response
+                        where s.Key == "top"
+                        select s.Value;
 
-            foreach (string key in Json_Response.Keys)
-            {
-                #region Deserialize stream objects to twitchStreams
-                if (key == "top")
+                // The JSON Response for the game query returns a "Top" object with an array of objects.
+                // I am forcing the execution of the linq query (which will only ever contain one element)
+                // Then casting to an object array.
+                object[] stream_objects = (object[])query.ToArray().First<object>();
+
+                foreach(object game in stream_objects)
                 {
-                    // Because all of the response are generic, force cast into object Array                    
-                    object[] stream_objects = (object[])Json_Response[key];
-
-                    for (int i = 0; i < stream_objects.Length; i++)
-                    {
                         // Create Twitch Stream objects for each stream key/value pair and add them to the found_stream list
-                        //popular_games.Add(new TwitchStream((Dictionary<string, object>)stream_objects[i]));                        
-                        Dictionary<string, object>game_list_dict = (Dictionary<string, object>)stream_objects[i];
-                        
+                        Dictionary<string, object> game_list_dict = (Dictionary<string, object>)game;
+
                         foreach (string game_list_key in game_list_dict.Keys)
                         {
                             if (game_list_key == "game")
-                            {                                
+                            {
                                 popular_games.Add(new TwitchGame(
                                     (Dictionary<string, object>)game_list_dict[game_list_key]
                                 ));
-                            }                            
-                        }
-                        
-                    }
+                            }
+                        }                    
                 }
+                    
+                
+                
                 #endregion
-            }
 
-            List<string> list_to_return = new List<string>();
+                List<string> list_to_return = new List<string>();
             foreach (TwitchGame game in this.popular_games)
             {
                 list_to_return.Add(game.Game);
@@ -122,5 +123,6 @@ namespace Twitch_API.Twitch
                 game = value;
             }
         }
+        
     }
 }

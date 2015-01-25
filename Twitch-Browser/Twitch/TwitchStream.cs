@@ -21,29 +21,33 @@ namespace Twitch_API.Twitch
             this.CreateStream(stream);
         }
 
-        private void CreateStream(Dictionary<string, object> stream) {            
-            foreach (string key in stream.Keys) {
-                //Debug.WriteLine(string.Format("Key: {0} Value: {1}", key, stream[key]));
-                switch (key) {
+        private void CreateStream(Dictionary<string, object> stream) {
+            var query = from s in stream
+                        where s.Value != null                        
+                        select new { s.Key, s.Value };
+
+            foreach (var game in query)
+            {                
+                switch (game.Key) 
+                {
                     case "game":
-                        this.game = (string)stream[key];
+                        this.game = (string)game.Value;
                         break;
-                    case "viewers":                        
-                        this.viewers = string.Format("{0}", stream[key]);
+                    case "viewers":
+                        this.viewers = (string)game.Value.ToString();
                         break;                    
                     case "preview":
-                        this.preview_image = (string)stream[key];
+                        this.preview_image = (string)game.Value;
                         break;
                     case "_id":
-                        this.id = string.Format("{0}", stream[key]);
+                        this.id = (string)game.Value.ToString();;
                         break;
-                    case "channel":                        
-                        this.generateChannelInfo((Dictionary<string, object>)stream[key]);
-                        break;
-                        
+                    case "channel":
+                        this.generateChannelInfo((Dictionary<string, object>)game.Value);
+                        break;                        
                 }
-
             }
+            
             
         }
 

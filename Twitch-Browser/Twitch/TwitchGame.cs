@@ -16,16 +16,19 @@ namespace Twitch_API.Twitch
         
         public void createGames(Dictionary<string, object> game_dict)
         {
-            foreach (string key in game_dict.Keys)
+            var query = from s in game_dict
+                        where s.Value != null
+                        select new {s.Key, s.Value};
+
+            foreach (var game in query)
             {
-                switch (key)
+                switch (game.Key)
                 {
                     case "name":
-                        this.game_name = (string)game_dict[key];
+                        this.game_name = (string)game.Value;
                         break;
                 }
             }
-
         }
 
         public string Game
