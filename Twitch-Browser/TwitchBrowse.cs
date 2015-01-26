@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 using Base_API.API;
 using Twitch_API.Twitch;
 
@@ -14,37 +15,49 @@ using Twitch_API.Twitch;
 namespace Stream_Browser
 {
     public partial class TwitchBrowse : Form
-    {
-        private static bool isDebug = true;
+    {        
         private TwitchAPI twitch = new TwitchAPI();
         private Configuration config_window;
-        private const string BESTGAMEEVER = "Ultra Street Fighter IV";
-        private List<PictureBox> preview_boxes = new List<PictureBox>();
+        private const string BESTGAMEEVER = "Ultra Street Fighter IV";        
+        // This is a dictionary that contains other dictionaries, each sub-dictionary will contain an indexed stream object 
+        private Dictionary<int, Dictionary<string, Object>> preview_containers = 
+            new Dictionary<int, Dictionary<string, Object>>();
 
         public TwitchBrowse()
         {
             InitializeComponent();
-            // Call Twitch and get a list of popular games, feed them to the game selector
-            try
+            if (this.VerifyInternetConnectivity())
             {
+                // Call Twitch and get a list of popular games, feed them to the game selector            
                 this.gameSelector_list_load();
-                this.create_preview_boxes();
+                this.create_containers();
             }
-            catch (ArgumentNullException) {
-                // TODO: Create No internet connection error and handler
+            else
+            {
+                this.IntroTextBox.Text = "This Application Requires an internet connection\n\n --Sorry";
             }
-        }
+        }        
 
-        public void clearPreviews()
-        {
-            throw new NotImplementedException();
-        }
-
+        protected bool VerifyInternetConnectivity()
+        {            
+            Ping pinger = new Ping();
+            PingReply replied = pinger.Send("8.8.8.8");
+            // Ping Googles DNS Server to test connectivity
+            if (replied.Status == IPStatus.Success)
+            {                
+                return (true);
+            }
+            else
+            {                
+                return (false);
+            }
+            
+        }        
+        
         public void drawPreviews()
         {
             // TODO : Remove call to twitch on drawPreviews
             string resp = twitch.get_top_streams();
-            int preview_location = 0;
             
             if (IntroTextBox.IsDisposed == false) 
             {
@@ -53,36 +66,32 @@ namespace Stream_Browser
                 IntroTextBox.Dispose();  
             }
 
-            
-            foreach (PictureBox box in preview_boxes)
+            for (int i = 0; i < preview_containers.Count; i++)            
             {
+                Dictionary<string, Object> preview = preview_containers[i];
+                PictureBox image_box = (PictureBox)preview["image"];
+                RichTextBox title_box = (RichTextBox)preview["title"];
+                RichTextBox broadcaster_box = (RichTextBox)preview["broadcaster"];
                 try
                 {
-                    preview_boxes[preview_location].ImageLocation = twitch.get_stream(preview_location).image_url;
-                    if (!box.Enabled)
+                    image_box.ImageLocation = twitch.get_stream(i).image_url;
+                    title_box.Text = twitch.get_stream(i).Title;
+                    broadcaster_box.Text = twitch.get_stream(i).Broadcaster;
+                    
+                    if (!image_box.Enabled)
                     {
-                        // TODO : Fix out of order indexing problem ('doh)
-                        box.Enabled = true;
-                    }
-                    preview_location += 1;
-                }
-                catch (ArgumentOutOfRangeException e)
-                {
-                    // TODO: Error Catch streams being out of index - This would happen if less
-                    /// than X predefined preview boxes are returned for a game.  (ie: 4 Preview boxes, 2 streams returned.
-                    Debug.WriteLine(string.Format("Found Missing Stream {0}", preview_location));
-                    box.Enabled = false;
-                }
-            }
-            /*
-            this.Preview1Text.Text = twitch.get_stream(1).get_title;
-            // this.PreviewImage1.ImageLocation = twitch.get_stream(1).image_url;
-            this.Preview2Text.Text = twitch.get_stream(2).get_title;
-            // this.PreviewImage2.ImageLocation = twitch.get_stream(2).image_url;
-            this.Preview3Text.Text = twitch.get_stream(3).get_title;
-            // this.PreviewImage3.ImageLocation = twitch.get_stream(3).image_url;
-            this.Preview4Text.Text = twitch.get_stream(4).get_title;
-            // this.PreviewImage4.ImageLocation = twitch.get_stream(4).image_url;            */
+                        image_box.Enabled = true;
+                    }                    
+                }                
+                catch (ArgumentOutOfRangeException)
+                {                 
+                    image_box.Image = null;
+                    title_box.Text = "";
+                    broadcaster_box.Text = "";
+                    image_box.Enabled = false;
+                    
+                }                
+            }            
         }        
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,7 +134,7 @@ namespace Stream_Browser
 
         private void gameSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox selection_box = (ComboBox)sender;            
+            ComboBox selection_box = (ComboBox)sender;
             twitch.Game = selection_box.SelectedItem.ToString();
             drawPreviews();
         }       
@@ -139,21 +148,66 @@ namespace Stream_Browser
             }            
         }
 
-        private void create_preview_boxes()
+        private void create_containers()
+        {
+            // Add the PictureBox objects to the preview_containers dictionary.
+            this.add_pictureboxes_to_container();
+            // Add the TextBox objects to the preview_containers dictionary.
+            this.add_textboxes_to_container();
+        }
+
+        private void add_pictureboxes_to_container()
         {
             var query = from object preview in this.Controls
                         where preview is PictureBox
-                        select preview;
+                        select preview;            
             
             foreach (PictureBox f in query) 
             {
+                /// VERY IMPORTANT - Make sure when adding a new previewbox that there's an int at the end of the name
+                /// That is not shared with another PictureBox.  As these will be created dynamically, this message should 
+                /// Not be as necessasy post feature add.
                 if (f.Tag != null && (string)f.Tag == "game".ToLower())
                 {
-                    this.preview_boxes.Add(f);
-                }                                
+                    string name = f.Name.ToString();
+                    int parsed_index = int.Parse(name.Substring(name.Length - 1));
+                    // If a dictionary has not been created at the given index create one
+                    if (!preview_containers.ContainsKey(parsed_index)) {
+                        preview_containers[parsed_index] = new Dictionary<string, Object>();
+                    }                    
+                    preview_containers[parsed_index].Add("image", f);
+                }
             }
-
         }
-    }
-       
+
+        private void add_textboxes_to_container()
+        {
+            var query = from object preview in this.Controls
+                        where preview is RichTextBox
+                        select preview;
+
+            foreach (RichTextBox f in query)
+            {
+                if (f.Tag != null)
+                {
+                    string name = f.Name.ToString();
+                    int parsed_index = int.Parse(name.Substring(name.Length - 1));
+                    if (!preview_containers.ContainsKey(parsed_index))
+                    {
+                        preview_containers[parsed_index] = new Dictionary<string, Object>();
+                    }
+
+                    if ((string)f.Tag == "title".ToLower())
+                    {
+                        preview_containers[parsed_index].Add("title", f);
+                    }
+                    else if ((string)f.Tag == "broadcaster".ToLower())
+                    {
+                        preview_containers[parsed_index].Add("broadcaster", f);
+                    }
+                }                
+            }
+        }
+
+    }       
 }

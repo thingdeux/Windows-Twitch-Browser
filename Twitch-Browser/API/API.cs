@@ -67,8 +67,7 @@ namespace Base_API.API
                 } */
                 #endregion                
                 try {
-                    Stream Data = this.client.OpenRead(this.requestURI);
-                    // TODO:  Set Status on Stream Read
+                    Stream Data = this.client.OpenRead(this.requestURI);                    
                     StreamReader reader = new StreamReader(Data);
                     string http_data = reader.ReadToEnd();
                     Data.Close();

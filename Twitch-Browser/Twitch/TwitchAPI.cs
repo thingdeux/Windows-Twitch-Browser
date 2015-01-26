@@ -104,8 +104,16 @@ namespace Twitch_API.Twitch
             return list_to_return;
         }
 
-        public TwitchStream get_stream(int index) {            
-            return found_streams[index];
+        public TwitchStream get_stream(int index) {
+            if (found_streams.ElementAtOrDefault(index) != null) 
+            { 
+                return found_streams[index]; 
+            }
+            else 
+            {             
+                return new TwitchStream(false);
+            }
+            
         }
 
         public string Game

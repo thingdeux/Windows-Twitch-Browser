@@ -21,6 +21,19 @@ namespace Twitch_API.Twitch
             this.CreateStream(stream);
         }
 
+        // TODO : Revisit this Hackie Implementation
+        // Hackie .... using this to process streams that don't exist.
+        public TwitchStream(bool does_not_exist)
+        {
+            broadcaster = "";
+            id = "";
+            viewers = "";
+            preview_image = "";
+            game = "";
+            stream_title = "";
+            url = "";
+        }
+
         private void CreateStream(Dictionary<string, object> stream) {
             var query = from s in stream
                         where s.Value != null                        
@@ -84,7 +97,7 @@ namespace Twitch_API.Twitch
             return return_string.ToString();
         }
 
-        public string get_title
+        public string Title
         {
             get 
             {
@@ -105,6 +118,14 @@ namespace Twitch_API.Twitch
             get
             {
                 return url;
+            }
+        }
+
+        public string Broadcaster
+        {
+            get
+            {
+                return broadcaster;
             }
         }
     }

@@ -55,6 +55,15 @@
     <Compile Include="Configuration.Designer.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
+    <Compile Include="TwitchCache.cs">
+      <DependentUpon>TwitchCache.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TwitchCache.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TwitchCache.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Twitch\TwitchAPI.cs" />
     <Compile Include="TwitchBrowse.cs">
       <SubType>Form</SubType>
@@ -94,6 +103,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TwitchCache.xsc">
+      <DependentUpon>TwitchCache.xsd</DependentUpon>
+    </None>
+    <None Include="TwitchCache.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TwitchCache.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TwitchCache.xss">
+      <DependentUpon>TwitchCache.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
