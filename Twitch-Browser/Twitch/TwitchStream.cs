@@ -19,12 +19,11 @@ namespace Twitch_API.Twitch
 
         public TwitchStream(Dictionary<string, object> stream)
         {
-            this.CreateStream(stream);
-            //System.Data.SQLite.
+            this.CreateStream(stream);            
         }
 
-        // TODO : Revisit this Hackie Implementation
-        // Hackie .... using this to process streams that don't exist.
+        // TODO : Revisit this Hacky Implementation
+        // Using this to process streams that don't exist.
         public TwitchStream(bool does_not_exist)
         {
             broadcaster = "";
@@ -34,6 +33,18 @@ namespace Twitch_API.Twitch
             game = "";
             stream_title = "";
             url = "";
+        }
+
+        public TwitchStream(string Broadcaster, string Title, 
+                            string URL, string Game, string Viewers, string Preview)
+        {
+            this.broadcaster = Broadcaster;
+            this.stream_title = Title;
+            this.url = URL;
+            this.game = Game;
+            this.viewers = Viewers;
+            this.preview_image = Preview;
+            
         }
 
         private void CreateStream(Dictionary<string, object> stream) {
@@ -68,22 +79,22 @@ namespace Twitch_API.Twitch
 
         private void generateChannelInfo(Dictionary<string, object> channel_info)
         {            
-                        foreach (string key in channel_info.Keys)
-                        {
-                            switch (key)
-                            {
-                                case "status":
-                                    this.stream_title = (string)channel_info[key];
-                                    break;
-                                case "url":
-                                    this.url = (string)channel_info[key];
-                                    break;
-                                case "display_name":
-                                    this.broadcaster = (string)channel_info[key];
-                                    break;
+            foreach (string key in channel_info.Keys)
+            {
+                switch (key)
+                {
+                    case "status":
+                        this.stream_title = (string)channel_info[key];
+                        break;
+                    case "url":
+                        this.url = (string)channel_info[key];
+                        break;
+                    case "display_name":
+                        this.broadcaster = (string)channel_info[key];
+                        break;
 
-                            }
-                        }
+                }
+            }
         }
 
         public string get_info()
@@ -128,6 +139,22 @@ namespace Twitch_API.Twitch
             get
             {
                 return broadcaster;
+            }
+        }
+        
+        public string Game 
+        {
+            get
+            {
+                return game;
+            }
+        }
+
+        public Int32 Viewers
+        {
+            get
+            {
+                return Int32.Parse(viewers);
             }
         }
     }

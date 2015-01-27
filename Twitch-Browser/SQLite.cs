@@ -989,8 +989,7 @@ namespace SQLite
 			int firstLen = savepoint.IndexOf ('D');
 			if (firstLen >= 2 && savepoint.Length > firstLen + 1) {
 				int depth;
-				if (Int32.TryParse (savepoint.Substring (firstLen + 1), out depth)) {
-					
+				if (Int32.TryParse (savepoint.Substring (firstLen + 1), out depth)) {					
 					if (0 <= depth && depth < _transactionDepth) {
 #if NETFX_CORE
                         Volatile.Write (ref _transactionDepth, depth);

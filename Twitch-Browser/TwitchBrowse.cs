@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using Base_API.API;
 using Twitch_API.Twitch;
+using Stream_Browser.DB;
 
 
 namespace Stream_Browser
@@ -19,18 +20,19 @@ namespace Stream_Browser
         private TwitchAPI twitch = new TwitchAPI();
         private Configuration config_window;
         private const string BESTGAMEEVER = "Ultra Street Fighter IV";        
-        // This is a dictionary that contains other dictionaries, each sub-dictionary will contain an indexed stream object 
+        // A dictionary that contains other dictionaries, 
+        // each sub-dictionary will contains an indexed stream object 
         private Dictionary<int, Dictionary<string, Object>> preview_containers = 
             new Dictionary<int, Dictionary<string, Object>>();
 
         public TwitchBrowse()
         {
             InitializeComponent();
-            if (this.VerifyInternetConnectivity())
+            if (this.VerifyInternetConnectivity() && DB.Commands.is_db_created())
             {
                 // Call Twitch and get a list of popular games, feed them to the game selector            
                 this.gameSelector_list_load();
-                this.create_containers();
+                this.create_containers();                
             }
             else
             {
@@ -52,12 +54,12 @@ namespace Stream_Browser
                 return (false);
             }
             
-        }        
+        }                
         
         public void drawPreviews()
         {
             // TODO : Remove call to twitch on drawPreviews
-            string resp = twitch.get_top_streams();
+            twitch.get_top_streams();
             
             if (IntroTextBox.IsDisposed == false) 
             {
@@ -134,7 +136,7 @@ namespace Stream_Browser
 
         private void gameSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox selection_box = (ComboBox)sender;
+            ComboBox selection_box = (ComboBox)sender;            
             twitch.Game = selection_box.SelectedItem.ToString();
             drawPreviews();
         }       
