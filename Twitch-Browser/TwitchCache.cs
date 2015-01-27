@@ -4,6 +4,7 @@
     public partial class TwitchCache {
         partial class StreamsDataTable
         {
+
         }
     }
 }

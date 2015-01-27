@@ -36,7 +36,7 @@ namespace Twitch_API.Twitch
 
         private void CreateStream(Dictionary<string, object> stream) {
             var query = from s in stream
-                        where s.Value != null                        
+                        where s.Value != null          
                         select new { s.Key, s.Value };
 
             foreach (var game in query)

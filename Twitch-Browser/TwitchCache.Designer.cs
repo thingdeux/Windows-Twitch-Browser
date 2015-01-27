@@ -399,7 +399,7 @@ namespace Stream_Browser {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public StreamsRow AddStreamsRow(string id, string title, string broadcaster, string url, string game) {
+            public StreamsRow AddStreamsRow(int id, string title, string broadcaster, string url, string game) {
                 StreamsRow rowStreamsRow = ((StreamsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -410,6 +410,13 @@ namespace Stream_Browser {
                 rowStreamsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowStreamsRow);
                 return rowStreamsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public StreamsRow FindByid(int id) {
+                return ((StreamsRow)(this.Rows.Find(new object[] {
+                            id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -439,7 +446,7 @@ namespace Stream_Browser {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
                 this.columntitle = new global::System.Data.DataColumn("title", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntitle);
@@ -449,6 +456,18 @@ namespace Stream_Browser {
                 base.Columns.Add(this.columnurl);
                 this.columngame = new global::System.Data.DataColumn("game", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columngame);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnid}, true));
+                this.columnid.AllowDBNull = false;
+                this.columnid.Unique = true;
+                this.columntitle.AllowDBNull = false;
+                this.columntitle.DefaultValue = ((string)("\"\""));
+                this.columnbroadcaster.AllowDBNull = false;
+                this.columnbroadcaster.DefaultValue = ((string)("\"\""));
+                this.columnurl.AllowDBNull = false;
+                this.columnurl.DefaultValue = ((string)("\"\""));
+                this.columngame.AllowDBNull = false;
+                this.columngame.DefaultValue = ((string)("\"\""));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -591,14 +610,9 @@ namespace Stream_Browser {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string id {
+            public int id {
                 get {
-                    try {
-                        return ((string)(this[this.tableStreams.idColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'Streams\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableStreams.idColumn]));
                 }
                 set {
                     this[this.tableStreams.idColumn] = value;
@@ -609,12 +623,7 @@ namespace Stream_Browser {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string title {
                 get {
-                    try {
-                        return ((string)(this[this.tableStreams.titleColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'title\' in table \'Streams\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableStreams.titleColumn]));
                 }
                 set {
                     this[this.tableStreams.titleColumn] = value;
@@ -625,12 +634,7 @@ namespace Stream_Browser {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string broadcaster {
                 get {
-                    try {
-                        return ((string)(this[this.tableStreams.broadcasterColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'broadcaster\' in table \'Streams\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableStreams.broadcasterColumn]));
                 }
                 set {
                     this[this.tableStreams.broadcasterColumn] = value;
@@ -641,12 +645,7 @@ namespace Stream_Browser {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string url {
                 get {
-                    try {
-                        return ((string)(this[this.tableStreams.urlColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'url\' in table \'Streams\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableStreams.urlColumn]));
                 }
                 set {
                     this[this.tableStreams.urlColumn] = value;
@@ -657,76 +656,11 @@ namespace Stream_Browser {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string game {
                 get {
-                    try {
-                        return ((string)(this[this.tableStreams.gameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'game\' in table \'Streams\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableStreams.gameColumn]));
                 }
                 set {
                     this[this.tableStreams.gameColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsidNull() {
-                return this.IsNull(this.tableStreams.idColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetidNull() {
-                this[this.tableStreams.idColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IstitleNull() {
-                return this.IsNull(this.tableStreams.titleColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SettitleNull() {
-                this[this.tableStreams.titleColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsbroadcasterNull() {
-                return this.IsNull(this.tableStreams.broadcasterColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetbroadcasterNull() {
-                this[this.tableStreams.broadcasterColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsurlNull() {
-                return this.IsNull(this.tableStreams.urlColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SeturlNull() {
-                this[this.tableStreams.urlColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsgameNull() {
-                return this.IsNull(this.tableStreams.gameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetgameNull() {
-                this[this.tableStreams.gameColumn] = global::System.Convert.DBNull;
             }
         }
         

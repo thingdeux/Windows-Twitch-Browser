@@ -55,6 +55,7 @@
     <Compile Include="Configuration.Designer.cs">
       <DependentUpon>Configuration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="TwitchCache.cs">
       <DependentUpon>TwitchCache.xsd</DependentUpon>
       <SubType>Component</SubType>

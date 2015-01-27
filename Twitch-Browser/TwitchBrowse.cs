@@ -39,10 +39,10 @@ namespace Stream_Browser
         }        
 
         protected bool VerifyInternetConnectivity()
-        {            
+        {
+            // Ping Googles DNS Server to test internet connectivity
             Ping pinger = new Ping();
-            PingReply replied = pinger.Send("8.8.8.8");
-            // Ping Googles DNS Server to test connectivity
+            PingReply replied = pinger.Send("8.8.8.8");            
             if (replied.Status == IPStatus.Success)
             {                
                 return (true);
