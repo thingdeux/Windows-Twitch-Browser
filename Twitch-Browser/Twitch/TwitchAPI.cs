@@ -99,7 +99,7 @@ namespace Twitch_API.Twitch
 
         public void update_cache_streams(string game)
         {
-            //Commands.delete_outdated_streams(game);
+            Commands.delete_outdated_streams(game);            
             foreach (TwitchStream stream in found_streams)
             {
                 Stream_Browser.DB.Commands.insert_twitch_stream(stream);
