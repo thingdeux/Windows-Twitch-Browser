@@ -67,7 +67,7 @@ namespace Twitch_API.Twitch
                     }
                 }
                 #endregion                
-                this.load_db();
+                this.update_cache_streams(this.game);
             }
         }
 
@@ -87,8 +87,7 @@ namespace Twitch_API.Twitch
         }
 
         public void load_streams_from_db(string game)
-        {
-            //List<Stream> streams = Commands.QueryStreams(game);            
+        {            
             foreach (Stream s in Commands.QueryStreams(game))
             {
                 TwitchStream retrieved_stream = new TwitchStream(
@@ -98,8 +97,9 @@ namespace Twitch_API.Twitch
             }
         }
 
-        public void load_db()
+        public void update_cache_streams(string game)
         {
+            //Commands.delete_outdated_streams(game);
             foreach (TwitchStream stream in found_streams)
             {
                 Stream_Browser.DB.Commands.insert_twitch_stream(stream);
