@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.SQLite;
 using System.Text;
 using System.Diagnostics;
 
@@ -19,6 +20,7 @@ namespace Twitch_API.Twitch
         public TwitchStream(Dictionary<string, object> stream)
         {
             this.CreateStream(stream);
+            //System.Data.SQLite.
         }
 
         // TODO : Revisit this Hackie Implementation
