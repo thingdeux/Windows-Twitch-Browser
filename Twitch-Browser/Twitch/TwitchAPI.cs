@@ -126,18 +126,18 @@ namespace Twitch_API.Twitch
 
             foreach(object game in stream_objects)
             {
-                    // Create Twitch Stream objects for each stream key/value pair and add them to the found_stream list
-                    Dictionary<string, object> game_list_dict = (Dictionary<string, object>)game;
+                // Create Twitch Stream objects for each stream key/value pair and add them to the found_stream list
+                Dictionary<string, object> game_list_dict = (Dictionary<string, object>)game;
 
-                    foreach (string game_list_key in game_list_dict.Keys)
+                foreach (string game_list_key in game_list_dict.Keys)
+                {
+                    if (game_list_key == "game")
                     {
-                        if (game_list_key == "game")
-                        {
-                            popular_games.Add(new TwitchGame(
-                                (Dictionary<string, object>)game_list_dict[game_list_key]
-                            ));
-                        }
-                    }                    
+                        popular_games.Add(new TwitchGame(
+                            (Dictionary<string, object>)game_list_dict[game_list_key]
+                        ));
+                    }
+                }                    
             }
             #endregion
 

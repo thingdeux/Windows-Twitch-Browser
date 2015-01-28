@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\API.cs" />
+    <Compile Include="API\Threads.cs" />
     <Compile Include="Configuration.cs">
       <SubType>Form</SubType>
     </Compile>
